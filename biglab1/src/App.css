@@ -28,6 +28,34 @@
   color: #61dafb;
 }
 
+.aside-bg {
+  background-color:#ecececff;
+}
+
+.transparent-bg {
+  background-color: transparent !important;
+}
+
+
+.row-height {
+  min-height: 100vh;
+}
+
+.important-text {
+  color: red;
+  font-weight: bold;
+}
+
+.radius {
+  border: none;
+  font-size: 20px;
+  position:fixed;
+  display: inline-block;
+  right:1.5rem;
+  bottom:1.5rem;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
