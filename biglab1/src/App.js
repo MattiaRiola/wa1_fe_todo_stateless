@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import todo from './todo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
@@ -32,7 +32,9 @@ function MyNavbar(props) {
     <>
       <Navbar bg="primary" variant="dark" expand="lg" className="sticky-top">
         <Navbar.Toggle aria-controls="menu-filter" />
-        <Navbar.Brand href="#home" className="d-inline-block align-top">ToDo Manager</Navbar.Brand>
+        <Navbar.Brand href="#home" className="d-inline-block align-top">
+          <img alt="" src={todo} width="30" height="30" className="d-inline-block align-top"/>{' '} Manager
+        </Navbar.Brand>
 
         <Form inline className="m-lg-auto d-none d-sm-block">
           <FormControl type="text" placeholder="Search" className="mr-sm-2 mt-1 mt-sm-0" />
