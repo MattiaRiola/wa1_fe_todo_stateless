@@ -90,14 +90,4 @@ function TaskDate(props) {
   );
 }
 
-
-const filter_buttons = new Map([
-    ["All" , () => {}],
-    ["Important" , () => {}],
-    ["Today" , document.getElementById('today_button')],
-    ["Next7days" , document.getElementById('next7days_button')],
-    ["Private" , document.getElementById('private_button')]
-
-]);
-
 export default MyMainContent;
