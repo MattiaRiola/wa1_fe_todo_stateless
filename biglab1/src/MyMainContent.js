@@ -23,7 +23,6 @@ function Title(props) {
 }
 
 
-
 function TaskTable(props) {
 
   return (

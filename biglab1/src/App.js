@@ -25,13 +25,15 @@ const fakeTasks = [
 function App() {
   //https://react-bootstrap.github.io/utilities/transitions/
   const [open, setOpen] = useState(false);
+  let [filter, setFilter] = useState('All');
+
   return (
     <>
       <MyNavbar setOpen={setOpen} open={open}/>
       <Container fluid>
         <Row className="row-height">
-          <MyAside open={open}/>
-          <MyMainContent tasks = {fakeTasks}/>
+          <MyAside open={open} setFilter={setFilter}/>
+          <MyMainContent tasks = {fakeTasks} filter={filter}/>
         </Row> 
         <button class="btn btn-lg btn-primary rounded-circle radius">+</button>
       </Container>

@@ -12,7 +12,7 @@ function MyNavbar(props) {
     return (
         <>
             <Navbar bg="primary" variant="dark" expand="lg" className="sticky-top">
-                <Navbar.Toggle onClick={() => props.setOpen(!props.open)} aria-controls="menu-filter" />
+                <Navbar.Toggle onClick={() => props.setOpen(!props.open)} aria-controls="menu-filter" aria-expanded={props.open}/>
                 <Navbar.Brand href="#home" className="d-inline-block align-top">
                     <img alt="" src={todo} width="30" height="30" className="d-inline-block align-top" />{' '} Manager
                 </Navbar.Brand>
