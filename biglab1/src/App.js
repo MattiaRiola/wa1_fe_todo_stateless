@@ -6,6 +6,8 @@ import MyMainContent from './MyMainContent.js';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
+import { useState } from 'react';
+
 
 const fakeTasks = [
   {id: '1', description: 'laundry', date: dayjs('2021-03-29T23:59'), urgent: false, private: false},
@@ -21,12 +23,14 @@ const fakeTasks = [
 
 
 function App() {
+  //https://react-bootstrap.github.io/utilities/transitions/
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <MyNavbar />
+      <MyNavbar setOpen={setOpen} open={open}/>
       <Container fluid>
         <Row className="row-height">
-          <MyAside />
+          <MyAside open={open}/>
           <MyMainContent tasks = {fakeTasks}/>
         </Row> 
         <button class="btn btn-lg btn-primary rounded-circle radius">+</button>
