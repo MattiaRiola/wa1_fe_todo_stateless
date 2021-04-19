@@ -11,7 +11,7 @@ function MyMainContent(props) {
   return (
     <>
       <Col className="py-2 px-lg-3 border bg-light" id="menu-filter">
-        <Title />
+        <Title filter={props.filter}/>
         <TaskTable tasks={props.tasks} />
       </Col>
     </>
@@ -19,8 +19,10 @@ function MyMainContent(props) {
 }
 
 function Title(props) {
-  return (<h1>All</h1>);
+  return (<h1>{props.filter}</h1>);
 }
+
+
 
 function TaskTable(props) {
 
