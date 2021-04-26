@@ -5,6 +5,26 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import dayjs from 'dayjs';
 
+const myMap = new Map();
+// setting the filters
+myMap.set("All", (task) => true);
+myMap.set("Important", (task) => task.urgent);
+myMap.set("Today", (task) =>  {
+                            if(task.date !== undefined)
+                              return (dayjs(task.date).diff(dayjs(), 'day')===0  && dayjs(task.date).diff(dayjs(), 'minute') > 0)  //TODO: non mostrare i task del giorno dopo entro 24ore dayjs(task.date).day()===now.day()) && 
+                            else
+                              return false;
+                            }
+                            );
+myMap.set("Next 7 Days", (task) =>  {
+                                  if(task.date !== undefined)
+                                    return (dayjs(task.date).diff(dayjs(), 'day')<=7 && dayjs(task.date).diff(dayjs(), 'day')>=1)
+                                  else
+                                    return false;
+                                  }
+                            );
+myMap.set("Private", (task) => task.private);
+
 function MyMainContent(props) {
   //const [tasks,setTasks] = useState(props.tasks);
 
@@ -12,7 +32,7 @@ function MyMainContent(props) {
     <>
       <Col className="py-2 px-lg-3 border bg-light" id="menu-filter">
         <Title filter={props.filter}/>
-        <TaskTable tasks={props.tasks} />
+        <TaskTable tasks={props.tasks} filter={props.filter}/>
       </Col>
     </>
   );
@@ -24,11 +44,10 @@ function Title(props) {
 
 
 function TaskTable(props) {
-
   return (
     <>
       <ListGroup as="ul" variant="flush">
-        {props.tasks.map(task => <TaskRow
+        {props.tasks.filter( myMap.get(props.filter) ).map(task => <TaskRow
           key={task.id}
           description={task.description}
           date={task.date}
