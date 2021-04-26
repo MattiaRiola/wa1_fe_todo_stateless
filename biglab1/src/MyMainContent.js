@@ -5,20 +5,23 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import dayjs from 'dayjs';
 
+let isToday = require('dayjs/plugin/isToday')
+dayjs.extend(isToday)
+
 const myMap = new Map();
 // setting the filters
 myMap.set("All", (task) => true);
 myMap.set("Important", (task) => task.urgent);
 myMap.set("Today", (task) =>  {
                             if(task.date !== undefined)
-                              return (dayjs(task.date).diff(dayjs(), 'day')===0  && dayjs(task.date).diff(dayjs(), 'minute') > 0)  //TODO: non mostrare i task del giorno dopo entro 24ore dayjs(task.date).day()===now.day()) && 
+                              return (dayjs(task.date).isToday())  //TODO: non mostrare i task del giorno dopo entro 24ore dayjs(task.date).day()===now.day()) && 
                             else
                               return false;
                             }
                             );
 myMap.set("Next 7 Days", (task) =>  {
                                   if(task.date !== undefined)
-                                    return (dayjs(task.date).diff(dayjs(), 'day')<=7 && dayjs(task.date).diff(dayjs(), 'day')>=1)
+                                    return (dayjs(task.date).diff(dayjs(), 'day',true)<=7 && dayjs(task.date).diff(dayjs(), 'day')>=0 && !dayjs(task.date).isToday())
                                   else
                                     return false;
                                   }

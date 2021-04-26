@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from './MyNavbar.js';
 import MyAside from './MyAside.js';
 import MyMainContent from './MyMainContent.js';
+import MyModal from './MyModal.js';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
@@ -20,9 +21,10 @@ const fakeTasks = [
   {id: '8', description: 'task the day after tomorrow', date: dayjs().add(2,'day') , urgent: true, private: true},
   {id: '9', description: 'My Task2', date: dayjs().add(-1,'day') , urgent: true, private: false},
   {id: '10', description: 'My Task3', date: dayjs().add(8,'day'), urgent: false, private: false },
-  {id: '11', description: 'my task 12h ago', date: dayjs().add(-12,'hour'), urgent: false, private: false },
-  {id: '12', description: 'my task  in 1h', date: dayjs().add(1,'hour'), urgent: false, private: false },
-  {id: '13', description: 'No date task', date: undefined, urgent: true, private: true }
+  {id: '11', description: 'My Task in 7 days', date: dayjs().add(7,'day'), urgent: false, private: false },
+  {id: '12', description: 'my task 12h ago', date: dayjs().add(-12,'hour'), urgent: false, private: false },
+  {id: '13', description: 'my task  in 1h', date: dayjs().add(1,'hour'), urgent: false, private: false },
+  {id: '14', description: 'No date task', date: undefined, urgent: true, private: true }
 ];
 
 
@@ -31,6 +33,11 @@ function App() {
   const [open, setOpen] = useState(false);
   let [filter, setFilter] = useState('All');
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <MyNavbar setOpen={setOpen} open={open}/>
@@ -38,8 +45,9 @@ function App() {
         <Row className="row-height">
           <MyAside open={open} setFilter={setFilter}/>
           <MyMainContent tasks = {fakeTasks} filter={filter}/>
-        </Row> 
-        <button class="btn btn-lg btn-primary rounded-circle radius">+</button>
+        </Row>
+        <MyModal show={show} handleClose={handleClose}/> 
+        <button class="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={handleShow}>+</button>
       </Container>
     </>
   );
