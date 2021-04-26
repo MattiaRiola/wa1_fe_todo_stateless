@@ -38,15 +38,22 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [tasks, setTasks] = useState(fakeTasks);
+  const addTask = (task) => {
+    setTasks(oldTasks => [...oldTasks, task]);
+  }
+
+  
+
   return (
     <>
       <MyNavbar setOpen={setOpen} open={open}/>
       <Container fluid>
         <Row className="row-height">
           <MyAside open={open} setFilter={setFilter}/>
-          <MyMainContent tasks = {fakeTasks} filter={filter}/>
+          <MyMainContent tasks = {tasks} filter={filter}/>
         </Row>
-        <MyModal show={show} handleClose={handleClose}/> 
+        <MyModal show={show} handleClose={handleClose} addTask={addTask}/> 
         <button class="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={handleShow}>+</button>
       </Container>
     </>
