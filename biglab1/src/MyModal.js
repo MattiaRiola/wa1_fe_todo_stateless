@@ -14,7 +14,10 @@ function MyModal(props) {
 
   const handleAdd = (event) => {
       event.preventDefault();
-      const task = {id:'3567', description: description, date: dayjs(date), urgent: urgent, private: taskprivate};
+      props.setLastId((old) => old+1);
+      const task = {id: props.lastId, description: description, date: dayjs(date), urgent: urgent, private: taskprivate};
+      console.log("adding this task: ");
+      console.log(task);
       // VALIDATE !!!
       /* Validation rules: course != '', course not already in props.courses */
       //if(valid)

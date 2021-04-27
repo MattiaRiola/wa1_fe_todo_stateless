@@ -29,7 +29,7 @@ myMap.set("Next 7 Days", (task) =>  {
 myMap.set("Private", (task) => task.private);
 
 function MyMainContent(props) {
-  //const [tasks,setTasks] = useState(props.tasks);
+
 
   return (
     <>
