@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import MyForm from './MyForm.js';
 import dayjs from 'dayjs';
+import AddTaskForm  from './AddTaskForm';
 
 function MyModal(props) {
 
@@ -13,14 +12,11 @@ function MyModal(props) {
   const [errorMessage, setErrorMessage] = useState();
 
   const handleAdd = (event) => {
-      event.preventDefault();
       props.setLastId((old) => old+1);
       const task = {id: props.lastId, description: description, date: dayjs(date), urgent: urgent, private: taskprivate};
       console.log("adding this task: ");
       console.log(task);
-      // VALIDATE !!!
-      /* Validation rules: course != '', course not already in props.courses */
-      //if(valid)
+
       props.addTask(task);
       props.handleClose();
       //clear fields
@@ -37,6 +33,7 @@ function MyModal(props) {
     setTaskprivate(false);
     setUrgent(false);
   }
+  
   const changePrivate = () => setTaskprivate(!taskprivate);
   const changeUrgent = () => setUrgent(!urgent);
 
@@ -47,16 +44,9 @@ function MyModal(props) {
           <Modal.Title>Add a new task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <MyForm setDescription={setDescription} setDate={setDate} changePrivate={changePrivate} changeUrgent={changeUrgent}/>
+            <AddTaskForm handleAdd={handleAdd} setDescription={setDescription} setDate={setDate} changePrivate={changePrivate} changeUrgent={changeUrgent}/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCancel}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleAdd}>
-            Add task
-          </Button>
-        </Modal.Footer>
+        
       </Modal>
     </>
   );
