@@ -13,7 +13,7 @@ myMap.set("All", (task) => true);
 myMap.set("Important", (task) => task.urgent);
 myMap.set("Today", (task) =>  {
                             if(task.date !== undefined)
-                              return (dayjs(task.date).isToday())  //TODO: non mostrare i task del giorno dopo entro 24ore dayjs(task.date).day()===now.day()) && 
+                              return (dayjs(task.date).isToday());
                             else
                               return false;
                             }
