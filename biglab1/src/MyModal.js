@@ -9,11 +9,11 @@ function MyModal(props) {
   const [date, setDate] = useState('') ;
   const [taskprivate, setTaskprivate] = useState(false);
   const [urgent, setUrgent] = useState(false);
-  const [errorMessage, setErrorMessage] = useState();
 
   const handleAdd = (event) => {
       props.setLastId((old) => old+1);
-      const task = {id: props.lastId, description: description, date: dayjs(date), urgent: urgent, private: taskprivate};
+
+      const task = {id: props.lastId, description: description, date:( dayjs(date).isValid()) ?  dayjs(date) : undefined , urgent: urgent, private: taskprivate};
       console.log("adding this task: ");
       console.log(task);
 
@@ -26,13 +26,17 @@ function MyModal(props) {
       setUrgent(false);
   };
 
-  const handleCancel = (event) => {
-    props.handleClose();
-    setDescription('');
-    setDate('');
-    setTaskprivate(false);
-    setUrgent(false);
-  }
+  /**
+   * DEPRECATED: (it was used by the close button in modal footer )
+   * close the modal in a clean way
+   */
+  // const handleCancel = (event) => {
+  //   props.handleClose();
+  //   setDescription('');
+  //   setDate('');
+  //   setTaskprivate(false);
+  //   setUrgent(false);
+  // }
   
   const changePrivate = () => setTaskprivate(!taskprivate);
   const changeUrgent = () => setUrgent(!urgent);
