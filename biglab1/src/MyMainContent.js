@@ -5,8 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
-import { useContext } from 'react';
-import UpdateTask from './createContexts.js';
+import { useState } from 'react';
+import MyModal from './MyModal.js';
 
 let isToday = require('dayjs/plugin/isToday')
 dayjs.extend(isToday)
@@ -38,7 +38,7 @@ function MyMainContent(props) {
     <>
       <Col className="py-2 px-lg-3 border bg-light" id="menu-filter">
         <Title filter={props.filter} />
-        <TaskTable tasks={props.tasks} filter={props.filter} deleteTask={props.deleteTask} handleShow={props.handleShow}/>
+        <TaskTable tasks={props.tasks} filter={props.filter} deleteTask={props.deleteTask} editTask={props.editTask}/>
       </Col>
     </>
   );
@@ -61,7 +61,7 @@ function TaskTable(props) {
           urgent={task.urgent}
           private={task.private} 
           deleteTask={props.deleteTask}
-          handleShow={props.handleShow} />)}
+          editTask={props.editTask} />)}
       </ListGroup>
 
     </>
@@ -84,7 +84,7 @@ function TaskRow(props) {
                 <TaskDate date={props.date} />
               </Col>
               <Col md="auto">
-                <TaskEditing id={props.id} description={props.description} urgent={props.urgent} private={props.private} date={props.date} handleShow={props.handleShow}/>
+                <TaskEditing id={props.id} description={props.description} urgent={props.urgent} private={props.private} date={props.date} editTask={props.editTask}/>
                 <TaskRemove id={props.id} deleteTask={props.deleteTask}/>
               </Col>
           </Row>
@@ -95,18 +95,21 @@ function TaskRow(props) {
 }
 
 function TaskEditing(props) {
-  const setCurrentTask = useContext(UpdateTask);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
   let currentTask = {id: props.id, description: props.description, date: props.date, urgent: props.urgent, private: props.private};
   return (
     <>
-    <span onClick={() =>
-        {setCurrentTask(currentTask);
-          props.handleShow();
-        } }>
+    <span onClick={() => {
+      setShow(true);
+      }}> 
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-fill" viewBox="0 0 16 16">
         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
       </svg>
     </span>
+    <MyModal show={show} handleClose={handleClose} currentTask={currentTask} editTask={props.editTask}/>
     </>
   );
 }
