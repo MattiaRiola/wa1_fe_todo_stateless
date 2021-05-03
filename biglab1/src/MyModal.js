@@ -19,6 +19,12 @@ function MyModal(props) {
     console.log(task);
     
     props.addTask(task);
+  
+    setDescription('');
+    setDate('');
+    setTaskprivate(false);
+    setUrgent(false);
+
     props.handleClose();
     
     props.setLastId((old) => old+1);

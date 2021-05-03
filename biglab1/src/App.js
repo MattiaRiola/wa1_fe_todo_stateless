@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const fakeTasks = [
   { id: 1, description: 'laundry', date: dayjs('2021-03-29T23:59'), urgent: false, private: false },
@@ -61,17 +61,37 @@ function App() {
   }
 
   return (
-    <>
+    <Router>
       <MyNavbar setOpen={setOpen} open={open} />
       <Container fluid>
         <Row className="row-height">
           <MyAside open={open} setFilter={setFilter} />
-          <MyMainContent tasks={tasks} filter={filter} deleteTask={deleteTask} editTask={editTask} />
+          <Switch>
+            <Route exact path="/" render={() =>
+              <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+            <Route path="/All" render={() =>
+              <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+            <Route path="/Important" render={() => 
+              <MyMainContent tasks={tasks} filter={"Important"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+            <Route path="/Today" render={() => 
+              <MyMainContent tasks={tasks} filter={"Today"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+            <Route path="/Next7Days" render={() => 
+              <MyMainContent tasks={tasks} filter={"Next 7 Days"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+            <Route path="/Private" render={() =>
+              <MyMainContent tasks={tasks} filter={"Private"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+          </Switch>
         </Row>
         <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId} />
         <button className="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={() => { handleShow() }}>+</button>
       </Container>
-    </>
+    </Router>
+
   );
 }
 
