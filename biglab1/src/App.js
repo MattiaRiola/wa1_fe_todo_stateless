@@ -39,7 +39,8 @@ function App() {
   const handleShow = () => setShow(true);
 
   const [tasks, setTasks] = useState(fakeTasks);
-  const [lastId, setLastId] = useState(100);
+  console.log("I have " + tasks.length + " tasks");
+  const [lastId, setLastId] = useState(tasks.length);
   const addTask = (task) => {
     setTasks(oldTasks => [...oldTasks, task]);
   }
@@ -55,7 +56,7 @@ function App() {
           <MyMainContent tasks = {tasks} filter={filter}/>
         </Row>
         <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId}/> 
-        <button class="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={handleShow}>+</button>
+        <button className="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={handleShow}>+</button>
       </Container>
     </>
   );

@@ -11,19 +11,20 @@ function MyModal(props) {
   const [urgent, setUrgent] = useState(false);
 
   const handleAdd = (event) => {
-      props.setLastId((old) => old+1);
+    
+    const task = {id: props.lastId+1, description: description, date:( dayjs(date).isValid()) ?  dayjs(date) : undefined , urgent: urgent, private: taskprivate};
+    console.log("adding this task: ");
+    console.log(task);
+    
+    props.addTask(task);
+    props.handleClose();
+    //clear fields
+    setDescription('');
+    setDate('');
+    setTaskprivate(false);
+    setUrgent(false);
 
-      const task = {id: props.lastId, description: description, date:( dayjs(date).isValid()) ?  dayjs(date) : undefined , urgent: urgent, private: taskprivate};
-      console.log("adding this task: ");
-      console.log(task);
-
-      props.addTask(task);
-      props.handleClose();
-      //clear fields
-      setDescription('');
-      setDate('');
-      setTaskprivate(false);
-      setUrgent(false);
+    props.setLastId((old) => old+1);
   };
 
   /**
