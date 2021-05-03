@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-
+import UpdateTask from './createContexts.js';
 
 const fakeTasks = [
   {id: 1, description: 'laundry', date: dayjs('2021-03-29T23:59'), urgent: false, private: false},
@@ -52,6 +52,7 @@ function App() {
 
   return (
     <>
+    <UpdateTask.Provider value={}>
       <MyNavbar setOpen={setOpen} open={open}/>
       <Container fluid>
         <Row className="row-height">
@@ -61,6 +62,7 @@ function App() {
         <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId} /> 
         <button className="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={handleShow}>+</button>
       </Container>
+    </UpdateTask.Provider>
     </>
   );
 }
