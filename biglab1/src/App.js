@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 const fakeTasks = [
   { id: 1, description: 'laundry', date: dayjs('2021-03-29T23:59'), urgent: false, private: false },

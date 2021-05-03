@@ -56,7 +56,7 @@ function MyModal(props) {
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add a new task</Modal.Title>
+          <Modal.Title>{props.currentTask ? "Edit task" : "Add a new task"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <AddTaskForm handleAddOrEdit={props.currentTask ? handleEdit : handleAdd} setDescription={setDescription} setDate={setDate} changePrivate={changePrivate} changeUrgent={changeUrgent} description={description} date={date} taskprivate={taskprivate} urgent={urgent}/>
