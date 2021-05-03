@@ -67,24 +67,27 @@ function App() {
         <Row className="row-height">
           <MyAside open={open} setFilter={setFilter} />
           <Switch>
+            <Route path="/:filterName" render={({ match }) =>
+              (<MyMainContent tasks={tasks} filter={match.params.filterName} deleteTask={deleteTask} editTask={editTask} />)
+            } />
             <Route exact path="/" render={() =>
               <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
             } />
-            <Route path="/All" render={() =>
+            {/* <Route path="/All" render={() =>
               <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
             } />
-            <Route path="/Important" render={() => 
+            <Route path="/Important" render={() =>
               <MyMainContent tasks={tasks} filter={"Important"} deleteTask={deleteTask} editTask={editTask} />
             } />
-            <Route path="/Today" render={() => 
+            <Route path="/Today" render={() =>
               <MyMainContent tasks={tasks} filter={"Today"} deleteTask={deleteTask} editTask={editTask} />
             } />
-            <Route path="/Next7Days" render={() => 
+            <Route path="/Next7Days" render={() =>
               <MyMainContent tasks={tasks} filter={"Next 7 Days"} deleteTask={deleteTask} editTask={editTask} />
             } />
             <Route path="/Private" render={() =>
               <MyMainContent tasks={tasks} filter={"Private"} deleteTask={deleteTask} editTask={editTask} />
-            } />
+            } /> */}
           </Switch>
         </Row>
         <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId} />
