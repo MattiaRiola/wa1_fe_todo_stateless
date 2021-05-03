@@ -6,13 +6,20 @@ import AddTaskForm  from './AddTaskForm';
 function MyModal(props) {
   //console.log("this is the current task: " + props.currentTask.description);
   const [description, setDescription] = useState(props.currentTask ? props.currentTask.description : '');
-  const [date, setDate] = useState(props.currentTask ? dayjs(props.currentTask.date) : '') ;
+  const [date, setDate] = useState(props.currentTask ? 
+    (props.currentTask.date ? dayjs(props.currentTask.date) : '' )
+    : '') ;
   const [taskprivate, setTaskprivate] = useState(props.currentTask ? props.currentTask.private : false);
   const [urgent, setUrgent] = useState(props.currentTask ? props.currentTask.urgent : false);
 
+  const [hours, setHours] = useState(props.currentTask ? (props.currentTask.date ? dayjs(props.currentTask.date).format('HH:mm').toString() : '') : '');
+
   const handleAdd = (event) => {
-    
-    const task = {id: props.lastId+1, description: description, date:( dayjs(date).isValid()) ?  dayjs(date) : undefined , urgent: urgent, private: taskprivate};
+    const time = hours ? hours.split(":") : "23:59".split(":");
+    const hour = time[0];
+    const minutes = time[1];
+
+    const task = {id: props.lastId+1, description: description, date:( dayjs(date).isValid()) ?  dayjs(date).set('h',hour).set('m',minutes) : undefined , urgent: urgent, private: taskprivate};
     
     
     console.log("adding this task: ");
@@ -22,6 +29,7 @@ function MyModal(props) {
   
     setDescription('');
     setDate('');
+    setHours('');
     setTaskprivate(false);
     setUrgent(false);
 
@@ -31,8 +39,11 @@ function MyModal(props) {
   };
 
   const handleEdit = (event) => {
+    const time = hours.split(":");
+    const hour = time[0];
+    const minutes = time[1];
     
-    const task = {id: props.currentTask.id, description: description, date:( dayjs(date).isValid()) ?  dayjs(date) : undefined , urgent: urgent, private: taskprivate};
+    const task = {id: props.currentTask.id, description: description, date:( dayjs(date).isValid()) ?  dayjs(date).set('h',hour).set('m',minutes) : undefined , urgent: urgent, private: taskprivate};
     
     
     console.log("editing this task: ");
@@ -42,7 +53,6 @@ function MyModal(props) {
     props.handleClose();
     
   };
-
   /**
    * DEPRECATED: (it was used by the close button in modal footer )
    * close the modal in a clean way
@@ -65,7 +75,7 @@ function MyModal(props) {
           <Modal.Title>{props.currentTask ? "Edit task" : "Add a new task"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <AddTaskForm handleAddOrEdit={props.currentTask ? handleEdit : handleAdd} setDescription={setDescription} setDate={setDate} changePrivate={changePrivate} changeUrgent={changeUrgent} description={description} date={date} taskprivate={taskprivate} urgent={urgent}/>
+            <AddTaskForm handleAddOrEdit={props.currentTask ? handleEdit : handleAdd} setDescription={setDescription} setDate={setDate} changePrivate={changePrivate} changeUrgent={changeUrgent} setHours={setHours} hours={hours} description={description} date={date} taskprivate={taskprivate} urgent={urgent}/>
         </Modal.Body>
         
       </Modal>

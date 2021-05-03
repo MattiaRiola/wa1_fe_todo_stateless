@@ -50,19 +50,19 @@ function AddTaskForm(props) {
                     <Form.Control
                         type="date"
                         placeholder="date"
-                        value={dayjs(props.date).format('YYYY-MM-DD').toString()}
+                        value={props.date!=='' ? dayjs(props.date).format('YYYY-MM-DD').toString() : undefined}
                         onChange={td => props.setDate(td.target.value)}
                     />
                 </Form.Group>
-{/*                 <Form.Group as={Col} md="8" controlId="formBasicHours">
+                <Form.Group as={Col} md="8" controlId="formBasicHours">
                     <Form.Label>Hours</Form.Label>
                     <Form.Control
                         type="time"
                         placeholder="time"
-                        value={dayjs(props.date).format('HH:mm').toString()}
-                        onChange={td => props.setDate(td.target.value)}
+                        value={props.hours}
+                        onChange={td => props.setHours(td.target.value)}
                     />
-                </Form.Group> */}
+                </Form.Group>
                 </Form.Row>
                 <Form.Row>
                     
