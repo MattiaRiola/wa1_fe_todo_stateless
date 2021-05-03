@@ -2,6 +2,9 @@ import { ListGroup, Col, Collapse } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function MyAside(props) {
+    /**
+     * Aside contains links which are routes for filters (final version)
+     */
     return (
         <>
             <Collapse in={props.open}>

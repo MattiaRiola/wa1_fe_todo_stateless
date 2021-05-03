@@ -4,8 +4,14 @@ import dayjs from 'dayjs';
 import AddTaskForm  from './AddTaskForm';
 
 function MyModal(props) {
-  //console.log("this is the current task: " + props.currentTask.description);
+  /**
+   * Distinguish between Modal opened for editing (currentTask setted) or for adding a new Task 
+   */
+
   const [description, setDescription] = useState(props.currentTask ? props.currentTask.description : '');
+  /**
+   * In editing mode check if the task had a previous setted date
+   */
   const [date, setDate] = useState(props.currentTask ? 
     (props.currentTask.date ? dayjs(props.currentTask.date) : '' )
     : '') ;
@@ -15,18 +21,21 @@ function MyModal(props) {
   const [hours, setHours] = useState(props.currentTask ? (props.currentTask.date ? dayjs(props.currentTask.date).format('HH:mm').toString() : '') : '');
 
   const handleAdd = (event) => {
+    /**
+     * Retrieved hours and minuted from state hours setted by the form
+     */
     const time = hours ? hours.split(":") : "23:59".split(":");
     const hour = time[0];
     const minutes = time[1];
 
     const task = {id: props.lastId+1, description: description, date:( dayjs(date).isValid()) ?  dayjs(date).set('h',hour).set('m',minutes) : undefined , urgent: urgent, private: taskprivate};
-    
-    
-    console.log("adding this task: ");
-    console.log(task);
+
     
     props.addTask(task);
-  
+
+  /**
+   * Clean up the field of the modal for next task to add
+   */
     setDescription('');
     setDate('');
     setHours('');
@@ -45,10 +54,6 @@ function MyModal(props) {
     
     const task = {id: props.currentTask.id, description: description, date:( dayjs(date).isValid()) ?  dayjs(date).set('h',hour).set('m',minutes) : undefined , urgent: urgent, private: taskprivate};
     
-    
-    console.log("editing this task: ");
-    console.log(task);
-    
     props.editTask(task);
     props.handleClose();
     
@@ -64,10 +69,18 @@ function MyModal(props) {
   //   setTaskprivate(false);
   //   setUrgent(false);
   // }
+
+  /**
+   * setter to change state based on their previous value
+   */
   
   const changePrivate = () => setTaskprivate(!taskprivate);
   const changeUrgent = () => setUrgent(!urgent);
 
+  /**
+   * AddTaskForm receive as a prop the callback to use in the correct situation
+   * hanleEdit if the modal is a edit one, handleAdd if the modal is actived by pression of the '+' button
+   */
   return (
     <>
       <Modal show={props.show} onHide={props.handleClose}>

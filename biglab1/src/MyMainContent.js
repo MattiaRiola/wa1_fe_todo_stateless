@@ -11,8 +11,10 @@ import MyModal from './MyModal.js';
 let isToday = require('dayjs/plugin/isToday')
 dayjs.extend(isToday)
 
+/**
+ * Setting up filters
+ */
 const myMap = new Map();
-// setting the filters
 myMap.set("All", (task) => true);
 myMap.set("Important", (task) => task.urgent);
 myMap.set("Today", (task) => {
@@ -32,8 +34,6 @@ myMap.set("Next 7 Days", (task) => {
 myMap.set("Private", (task) => task.private);
 
 function MyMainContent(props) {
-
-
   return (
     <>
       <Col className="py-2 px-lg-3 border bg-light" id="menu-filter">
@@ -95,8 +95,10 @@ function TaskRow(props) {
 }
 
 function TaskEditing(props) {
+  /**
+   * State variable for the edit task modal, which is created/destroyed on each single task
+   */
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
 
   let currentTask = {id: props.id, description: props.description, date: props.date, urgent: props.urgent, private: props.private};

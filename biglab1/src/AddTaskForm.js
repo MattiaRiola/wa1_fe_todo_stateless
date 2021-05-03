@@ -9,24 +9,19 @@ function AddTaskForm(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("handle submit from AddTaskForm component");
-        console.log("event:");
-        console.log(event);
+
         const form = event.currentTarget;
-        console.log("form validity: " + form.checkValidity())
+
         if (form.checkValidity() === false) {
             event.stopPropagation();
         }
         else{
-            console.log("calling handleAdd... ")
              props.handleAddOrEdit();
          }
         setValidated(true);
         
     };
     
-    console.log("This is the current task with description: " + props.description);
-    console.log("This is the current task with date: " + props.date);
 
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -44,6 +39,10 @@ function AddTaskForm(props) {
                 </Form.Group>
             </Form.Row>
 
+            {/**
+             * The value displayed in the date form is resetted (to undefined) if props.date is == ''
+             * This is the case of the Add Modal or Edit modal of a task with Missing Date
+             */}
             <Form.Row>
                 <Form.Group as={Col} md="8" controlId="formBasicDate">
                     <Form.Label>Date</Form.Label>

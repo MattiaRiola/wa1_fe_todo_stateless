@@ -29,17 +29,25 @@ const fakeTasks = [
 
 
 function App() {
-  //https://react-bootstrap.github.io/utilities/transitions/
+  /**
+   * State variable to collapse/uncollapse Aside col on mobiles
+   */
   const [open, setOpen] = useState(false);
-
+  
+  /**
+   * State variable for modal (add/edit tasks)
+   */
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  /**
+   * State variable of tasks (contains the list of tasks) to modify/edit
+   */
   const [tasks, setTasks] = useState(fakeTasks);
-  console.log("I have " + tasks.length + " tasks");
   const [lastId, setLastId] = useState(tasks.length);
+
   const addTask = (task) => {
     setTasks(oldTasks => [...oldTasks, task]);
   }

@@ -8,7 +8,6 @@ import todo from './todo.svg';
 import Button from 'react-bootstrap/Button';
 
 function MyNavbar(props) {
-    //Toggle aria-expanded="false" data-target="#menu-filter" data-toggle="collapse"
     return (
         <>
             <Navbar bg="primary" variant="dark" expand="lg" className="sticky-top">
