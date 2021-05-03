@@ -8,12 +8,11 @@ import todo from './todo.svg';
 import Button from 'react-bootstrap/Button';
 
 function MyNavbar(props) {
-    //Toggle aria-expanded="false" data-target="#menu-filter" data-toggle="collapse"
     return (
         <>
             <Navbar bg="primary" variant="dark" expand="lg" className="sticky-top">
                 <Navbar.Toggle onClick={() => props.setOpen(oldOpen => !oldOpen)} aria-controls="menu-filter" aria-expanded={props.open}/>
-                <Navbar.Brand href="#home" className="d-inline-block align-top">
+                <Navbar.Brand href="/" className="d-inline-block align-top">
                     <img alt="" src={todo} width="30" height="30" className="d-inline-block align-top" />{' '} Manager
                 </Navbar.Brand>
 
