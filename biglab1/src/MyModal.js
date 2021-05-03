@@ -5,10 +5,10 @@ import AddTaskForm  from './AddTaskForm';
 
 function MyModal(props) {
 
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('') ;
-  const [taskprivate, setTaskprivate] = useState(false);
-  const [urgent, setUrgent] = useState(false);
+  const [description, setDescription] = useState(props.description ? props.description : '');
+  const [date, setDate] = useState(props.date ? props.date : '') ;
+  const [taskprivate, setTaskprivate] = useState(props.private ? props.private : false);
+  const [urgent, setUrgent] = useState(props.urgent ? props.urgent : false);
 
   const handleAdd = (event) => {
     
