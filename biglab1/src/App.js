@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const fakeTasks = [
   { id: 1, description: 'laundry', date: dayjs('2021-03-29T23:59'), urgent: false, private: false },
@@ -30,7 +31,6 @@ const fakeTasks = [
 function App() {
   //https://react-bootstrap.github.io/utilities/transitions/
   const [open, setOpen] = useState(false);
-  let [filter, setFilter] = useState('All');
 
   const [show, setShow] = useState(false);
 
@@ -60,17 +60,25 @@ function App() {
   }
 
   return (
-    <>
+    <Router>
       <MyNavbar setOpen={setOpen} open={open} />
       <Container fluid>
         <Row className="row-height">
-          <MyAside open={open} setFilter={setFilter} />
-          <MyMainContent tasks={tasks} filter={filter} deleteTask={deleteTask} editTask={editTask} />
+          <MyAside open={open} />
+          <Switch>
+            <Route path="/:filterName" render={({ match }) =>
+              (<MyMainContent tasks={tasks} filter={match.params.filterName} deleteTask={deleteTask} editTask={editTask} />)
+            } />
+            <Route exact path="/" render={() =>
+              <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
+            } />
+          </Switch>
         </Row>
         <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId} />
         <button className="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={() => { handleShow() }}>+</button>
       </Container>
-    </>
+    </Router>
+
   );
 }
 
