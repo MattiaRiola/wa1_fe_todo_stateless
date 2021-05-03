@@ -45,6 +45,9 @@ function App() {
     setTasks(oldTasks => [...oldTasks, task]);
   }
 
+  const deleteTask = (id) => {
+    setTasks(oldTasks => oldTasks.filter(task => task.id !== id));
+  }
   
 
   return (
@@ -53,9 +56,9 @@ function App() {
       <Container fluid>
         <Row className="row-height">
           <MyAside open={open} setFilter={setFilter}/>
-          <MyMainContent tasks = {tasks} filter={filter}/>
+          <MyMainContent tasks = {tasks} filter={filter} deleteTask={deleteTask} handleShow={handleShow}/>
         </Row>
-        <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId}/> 
+        <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId} /> 
         <button className="btn btn-lg btn-primary rounded-circle radius" variant="primary" onClick={handleShow}>+</button>
       </Container>
     </>
