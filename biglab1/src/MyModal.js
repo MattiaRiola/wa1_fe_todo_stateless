@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import dayjs from 'dayjs';
 import AddTaskForm  from './AddTaskForm';
+import UpdateTask from './createContexts.js';
 
 function MyModal(props) {
 
-  const [description, setDescription] = useState(props.description ? props.description : '');
-  const [date, setDate] = useState(props.date ? props.date : '') ;
-  const [taskprivate, setTaskprivate] = useState(props.private ? props.private : false);
-  const [urgent, setUrgent] = useState(props.urgent ? props.urgent : false);
-
+  const [description, setDescription] = useState(props.currentTask.description ? props.currentTask.description : '');
+  const [date, setDate] = useState(props.currentTask.date ? props.currentTask.date : '') ;
+  const [taskprivate, setTaskprivate] = useState(props.currentTask.private ? props.currentTask.private : false);
+  const [urgent, setUrgent] = useState(props.currentTask.urgent ? props.currentTask.urgent : false);
+  const setCurrentTask = useContext(UpdateTask);
+  
   const handleAdd = (event) => {
     
     const task = {id: props.lastId+1, description: description, date:( dayjs(date).isValid()) ?  dayjs(date) : undefined , urgent: urgent, private: taskprivate};
+    
+    
     console.log("adding this task: ");
     console.log(task);
     
@@ -23,6 +27,12 @@ function MyModal(props) {
     setDate('');
     setTaskprivate(false);
     setUrgent(false);
+
+    
+    const resetTask = {id: undefined, description: undefined, date: undefined, urgent: undefined, private: undefined};
+    setCurrentTask(resetTask);
+
+
 
     props.setLastId((old) => old+1);
   };
