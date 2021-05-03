@@ -31,7 +31,6 @@ const fakeTasks = [
 function App() {
   //https://react-bootstrap.github.io/utilities/transitions/
   const [open, setOpen] = useState(false);
-  let [filter, setFilter] = useState('All');
 
   const [show, setShow] = useState(false);
 
@@ -65,7 +64,7 @@ function App() {
       <MyNavbar setOpen={setOpen} open={open} />
       <Container fluid>
         <Row className="row-height">
-          <MyAside open={open} setFilter={setFilter} />
+          <MyAside open={open} />
           <Switch>
             <Route path="/:filterName" render={({ match }) =>
               (<MyMainContent tasks={tasks} filter={match.params.filterName} deleteTask={deleteTask} editTask={editTask} />)
@@ -73,21 +72,6 @@ function App() {
             <Route exact path="/" render={() =>
               <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
             } />
-            {/* <Route path="/All" render={() =>
-              <MyMainContent tasks={tasks} filter={"All"} deleteTask={deleteTask} editTask={editTask} />
-            } />
-            <Route path="/Important" render={() =>
-              <MyMainContent tasks={tasks} filter={"Important"} deleteTask={deleteTask} editTask={editTask} />
-            } />
-            <Route path="/Today" render={() =>
-              <MyMainContent tasks={tasks} filter={"Today"} deleteTask={deleteTask} editTask={editTask} />
-            } />
-            <Route path="/Next7Days" render={() =>
-              <MyMainContent tasks={tasks} filter={"Next 7 Days"} deleteTask={deleteTask} editTask={editTask} />
-            } />
-            <Route path="/Private" render={() =>
-              <MyMainContent tasks={tasks} filter={"Private"} deleteTask={deleteTask} editTask={editTask} />
-            } /> */}
           </Switch>
         </Row>
         <MyModal show={show} handleClose={handleClose} addTask={addTask} lastId={lastId} setLastId={setLastId} />

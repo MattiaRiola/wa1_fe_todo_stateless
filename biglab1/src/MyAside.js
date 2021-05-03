@@ -20,7 +20,7 @@ function MyAside(props) {
                             <ListGroup.Item as="li" action href="#filter-next7days" >Next 7 Days</ListGroup.Item>
                         </Link>
                         <Link to={"/Private"}>
-                            <ListGroup.Item as="li" action href="#filter-private">Private</ListGroup.Item>
+                            <ListGroup.Item as="li" action href="#filter-private" >Private</ListGroup.Item>
                         </Link>
                     </ListGroup>
                 </Col>
